@@ -95,9 +95,8 @@ function getFirstChar(value) {
  *   'cat'              => 'cat'
  *   '\tHello, World! ' => 'Hello, World!'
  */
-function removeLeadingAndTrailingWhitespaces(/* value */) {
-  throw new Error('Not implemented');
-
+function removeLeadingAndTrailingWhitespaces(value) {
+  return value.trim();
 }
 
 /**
@@ -145,8 +144,8 @@ function removeFirstOccurrences(str, value) {
  *   '<span>' => 'span'
  *   '<a>' => 'a'
  */
-function unbracketTag(/* str */) {
-  throw new Error('Not implemented');
+function unbracketTag(str) {
+  return str.replace(/[<>]/g, '');
 }
 
 
@@ -227,8 +226,20 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const arr = str.split('');
+  const result = arr.map((letter) => {
+    let res;
+    if ((letter >= 'A' && letter <= 'M') || (letter >= 'a' && letter <= 'm')) {
+      res = String.fromCharCode(letter.charCodeAt(0) + 13);
+    } else if ((letter >= 'N' && letter <= 'Z') || (letter >= 'n' && letter <= 'z')) {
+      res = String.fromCharCode(letter.charCodeAt(0) - 13);
+    } else {
+      res = letter;
+    }
+    return res;
+  });
+  return result.join('');
 }
 
 /**
@@ -245,7 +256,7 @@ function encodeToRot13(/* str */) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
- return value.isString();
+  return (typeof value === 'string' || value instanceof String);
 }
 
 
@@ -273,8 +284,14 @@ function isString(value) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const arr = [
+    'A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣',
+    'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦',
+    'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥',
+    'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠',
+  ];
+  return arr.indexOf(value);
 }
 
 

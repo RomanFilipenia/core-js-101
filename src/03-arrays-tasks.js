@@ -21,14 +21,9 @@
  *    [0, 1, 2, 3, 4, 5], 5    => 5
  */
 function findElement(arr, value) {
-  if (arr.indexOf(value) === -1) {
-    return arr.indexOf(value);
-  } else {
-    let index = arr.indexOf(value);
-    return arr[index];
-  }
-
+  return arr.indexOf(value);
 }
+
 
 /**
  * Generates an array of odd numbers of the specified length
@@ -75,13 +70,7 @@ function doubleArray(/* arr */) {
  *    [] => []
  */
 function getArrayOfPositives(arr) {
-  let newArr = [];
-  for (let i = 0; i <= arr.length - 1; i++) {
-    if (arr[i] > 0) {
-      newArr.push(arr[i]);
-    }
-  }
-  return newArr;
+  return arr.filter((itm) => itm > 0);
 }
 
 /**

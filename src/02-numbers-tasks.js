@@ -52,7 +52,7 @@ function getCicleCircumference(radius) {
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-  return (value1 + value2) / 2;
+  return value1 / 2 + value2 / 2;
 }
 
 /**
@@ -113,7 +113,8 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
   const ab = x1 * y1 + x2 * y2;
   const modA = Math.sqrt(x1 ** 2 + x2 ** 2);
   const modB = Math.sqrt(y1 ** 2 + y2 ** 2);
-  return Math.cos(ab / (modA * modB));
+  return Math.acos(ab / (modA * modB));
+
 }
 
 /**
@@ -204,8 +205,16 @@ function roundToPowerOfTen(num, pow) {
  *   17 => true
  */
 function isPrime(n) {
-  for (let i = 2; i < n; i += i) {
-    if (n % i === 0) return false;
+  if (n === 2) {
+    return true;
+  }
+  if (!(n % 2)) {
+    return false;
+  }
+  for (let i = 3; i < n; i += 2) {
+    if (!(n % i)) {
+      return false;
+    }
   }
   return true;
 }

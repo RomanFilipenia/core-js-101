@@ -29,11 +29,16 @@
  *                                                    //  Ask her again.';
  */
 function willYouMarryMe(isPositiveAnswer) {
-  return new Promise((resolve, reject) => {
-    isPositiveAnswer === true ? resolve('Hooray!!! She said "Yes"!') : null;
-    isPositiveAnswer === false ? resolve('Oh no, she said "No".') : null;
-    reject(new Error('Wrong parameter is passed! Ask her again.'));
+  const pr = new Promise((resolve, reject) => {
+    if (typeof isPositiveAnswer !== 'boolean') {
+      reject(new Error('Wrong parameter is passed! Ask her again.'));
+    } else if (isPositiveAnswer) {
+      resolve('Hooray!!! She said "Yes"!');
+    } else {
+      resolve('Oh no, she said "No".');
+    }
   });
+  return pr;
 }
 
 
@@ -97,11 +102,20 @@ function getFastestPromise(array) {
  *
  */
 function chainPromises(array, action) {
-  const arr = [];
-  const result = Promise.resolve(array);
-  return result.then((data) => data.forEach((res) => {
-    res.then((data) => arr.push(data));
-  })).then(() => arr.reduce((accum, curr) => action(accum, curr)));
+  return new Promise((resolve) => {
+    const resultArray = [];
+    let targetLength = array.length;
+    array.forEach((x) => {
+      x.then((y) => {
+        resultArray.push(y);
+        if (resultArray.length === targetLength) resolve(resultArray.reduce(action));
+      })
+        .catch(() => {
+          targetLength -= 1;
+          if (resultArray.length === targetLength) resolve(resultArray.reduce(action));
+        });
+    });
+  });
 }
 
 module.exports = {

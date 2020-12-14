@@ -51,12 +51,13 @@ function getFizzBuzz(num) {
  *   10 => 3628800
  */
 function getFactorial(n) {
-  if (n == 1) {
-    return 1;
+  let i = 1;
+  let res = 1;
+  while (i <= n) {
+    res *= i;
+    i += 1;
   }
-  else {
-    return n * getFactorial(n - 1);
-  }
+  return res;
 }
 
 
